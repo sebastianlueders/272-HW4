@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** SEBASTIAN LUEDERS | SECTION 002 ***
  *
  * This hashMap object represents an over simplification of Java's implementation of HashMap within
  * Java's Collection Framework Library. You are to complete the following methods:
@@ -221,17 +221,30 @@ class myHashMap<K,V> {
 
     public V remove(K key) {
 
-        /*
-         * ADD YOUR CODE HERE
-         *
-         * Review the code in the whole object to understand teh data structures layout.
-         * Additionally, review the method put() for inserting a new Key / Value pair into
-         * the HashMap. This method will do the opposite by removing an element. Do see
-         * the return value discussion in this method's prologue to make sure the correct
-         * return value is returned the invoking function based on the remove outcome.
-         */
+        int index = getBucketIndex(key);
 
+        HashNode<K, V> current = bucket.get(index);
+        HashNode<K, V> last = null;
+
+        while (current != null) {
+            if (current.key.equals(key)) {
+
+                HashNode<K, V> followingNode = current.next;
+
+                if (last == null) {
+                    bucket.set(index, followingNode);
+                } else {
+                    last.next = followingNode;
+                }
+
+                return current.value;
+            }
+
+            last = current;
+            current = current.next;
+        }
         return null;
+
     }
 
 
@@ -399,6 +412,18 @@ class myHashMap<K,V> {
 
     public V replace(K key, V val) {
 
+        V replacedVal = null;
+        int index = getBucketIndex(key);
+
+        HashNode<K, V> nodeToReplace = bucket.get(index);
+
+        if (nodeToReplace.value != null) {
+            replacedVal = nodeToReplace.value;
+            nodeToReplace.value = val;
+        }
+
+        return replacedVal;
+        
         /*
          * ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE
          *
@@ -406,7 +431,6 @@ class myHashMap<K,V> {
          * replace (see method's prologue above).
          */
 
-        return val;
     }
 
     
@@ -427,6 +451,19 @@ class myHashMap<K,V> {
 
     public boolean replace(K key, V oldVal, V newVal) {
 
+        boolean replaced = false;
+
+        int index = getBucketIndex(key);
+
+        HashNode<K, V> nodeToReplace = bucket.get(index);
+
+        if (nodeToReplace.value == oldVal) {
+            replace(key, newVal);
+            replaced = true;
+        }
+        
+        return replaced;
+        
         /*
          * ADD YOUR CODE HERE
          *
@@ -434,7 +471,6 @@ class myHashMap<K,V> {
          * value 'oldval', and is so, it SHOULD call replace(K, V) for code reuse.
          */
 
-        return false;
     }
 
 
