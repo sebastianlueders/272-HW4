@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** SEBASTIAN LUEDERS | SECTION 002 ***
  *
  * This HashingProblems object contains three methods / problems that you must
  * complete utilize the HashMap object within the Java's Collection Framework Library.
@@ -33,15 +33,18 @@ class HashingProblems {
 
     public double getAverage(HashMap<Integer, Integer> map, int[] array) {
 
-        /*
-         * ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOU NAME AT TOP OF FILE
-         *
-         * Note: if NO values found in common between the HashMap and supplied array,
-         * returning 0.0 is NOT correct, as that is not the average value. Whereas
-         * returning 0.0/0.0 IS correct (which would return a non-number).
-         */
+        double sum = 0.0;
+        double total = 0;
 
-         return 0.0 / 0.0;
+        for (int i = 0; i < array.length; i++) {
+            Integer val = map.get(array[i]);
+            if (val != null) {
+                sum += val;
+                total += 1;
+            }
+        }
+        
+        return sum / total;
   }
 
 
@@ -56,12 +59,11 @@ class HashingProblems {
     
       ArrayList<String> result = new ArrayList<>();
 
-      /*
-       * ADD YOUR CODE HERE
-       *
-       * Hint: Consider iterating over the HashMap using the keySet method.
-       */
-
+      for (Integer key : map.keySet()) {
+        if (key % 2 != 0) {
+            result.add(map.get(key));
+        }
+      }
 
       return result;
   }
@@ -106,11 +108,21 @@ class HashingProblems {
 
   public int twoSums(int[] numbers, int k) {
 
-      /*
-       * ADD YOUR CODE HERE
-       */
+    HashMap<Integer, Integer> diffs = new HashMap<>((int) 2 * numbers.length);
+    int total = 0;
 
-      return -1;
+    for (int i = 0; i < numbers.length; i++) {
+
+        int op1 = numbers[i] + k;
+        int op2 = numbers[i] - k;
+        
+        if (diffs.containsKey(op1) || diffs.containsKey(op2)) {
+            total++;
+        }
+        diffs.put(numbers[i], numbers[i] + k); // Value isn't useful here but it could be used to determine whhich array element is a & which is b if the array were unsorted (a - b = k)
+    }
+
+      return total;
   }
 
 } /* end class HashingProblems */

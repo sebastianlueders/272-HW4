@@ -423,13 +423,6 @@ class myHashMap<K,V> {
         }
 
         return replacedVal;
-        
-        /*
-         * ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE
-         *
-         * Make sure you return the proper value based on the outcome of this method's
-         * replace (see method's prologue above).
-         */
 
     }
 
@@ -463,13 +456,6 @@ class myHashMap<K,V> {
         }
         
         return replaced;
-        
-        /*
-         * ADD YOUR CODE HERE
-         *
-         * This method should apply the precondition (aka, the Key already exists with the
-         * value 'oldval', and is so, it SHOULD call replace(K, V) for code reuse.
-         */
 
     }
 
